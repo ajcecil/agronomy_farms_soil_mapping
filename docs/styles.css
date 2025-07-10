@@ -170,6 +170,7 @@ html, body {
   }
   .map-tabs .tab-btn.active {
     background: #c8102e;
+    color: #ffffff;
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   }
   .map-tabs .tab-btn:hover {
