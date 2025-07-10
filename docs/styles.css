@@ -239,7 +239,7 @@ html, body {
     white-space: nowrap;
   }
   .dropdown-menu li a:hover {
-    background: #535353;
+    background: #8d8d8d;
   }
   
   /* Show dropdown on hover */
