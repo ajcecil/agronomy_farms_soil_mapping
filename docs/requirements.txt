@@ -1,6 +1,3 @@
 sphinx
+myst-parser
 sphinx-rtd-theme
-myst-parser  # only if using Markdown
-
-extensions = ["myst_parser"]
-source_suffix = [".rst", ".md"]
