@@ -175,6 +175,7 @@ html, body {
   }
   .map-tabs .tab-btn:hover {
     background: #8d8d8d;
+    color: #ffffff;
   }
   .map-tabs .tab-content {
     display: none;
