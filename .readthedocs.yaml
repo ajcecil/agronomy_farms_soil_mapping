@@ -1,5 +1,5 @@
 # .readthedocs.yml
-version: 2
+version: 3
 
 build:
   os: ubuntu-22.04  # Stable, tested OS for RTD builds (24.04 is fine too)
