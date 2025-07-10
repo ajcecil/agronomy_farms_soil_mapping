@@ -1,24 +1,17 @@
-# Read the Docs configuration file
-# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
-
-# Required
+# .readthedocs.yml
 version: 2
 
-# Set the OS, Python version, and other tools you might need
 build:
-  os: ubuntu-24.04
+  os: ubuntu-22.04  # Stable, tested OS for RTD builds (24.04 is fine too)
   tools:
-    python: "3.13"
+    python: "3.10"  # Or "3.11" — avoid "3.13" since it's still pre-release
 
-# Build documentation in the "docs/" directory with Sphinx
+python:
+  install:
+    - requirements: docs/requirements.txt
+
 sphinx:
-   configuration: docs/conf.py
+  configuration: docs/conf.py
 
-# Optionally, but recommended,
-# declare the Python requirements required to build your documentation
-# See https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
-# python:
-#    install:
-#    - requirements: docs/requirements.txt
         
 
