@@ -32,8 +32,8 @@ html, body {
   /* make sidebar nav links look like buttons */
    .sidebar.left nav a {
        display: block;                  /* full-width blocks */
-       background-color: #006400;       /* green */
-       color: white;                    /* white text */
+       background-color: #f5f5f5;       /* white */
+       color: #000000;                    /* black text */
        padding: 0.6em 1em;              /* some breathing room */
        margin-bottom: 0.5em;            /* space between buttons */
        border-radius: 0.5em;            /* rounded corners */
@@ -52,7 +52,7 @@ html, body {
     position: fixed;
     left: 0; right: 0; bottom: 0;
     height: 60px;
-    background-color: #006400;
+    background-color: #f5f5f5;
     z-index: 1000;
   }
   
@@ -130,7 +130,7 @@ html, body {
   
   /* basic section text styling (all white here) */
   .section-text {
-    color: #ffffff;
+    color: #000000;
   }
   .section-text h2,
   .section-text h3,
@@ -140,7 +140,7 @@ html, body {
   .section-text ul {
     margin-left: 1.5em;    /* indent */
     list-style: disc;
-    color: #ffffff;           /* or whatever text color you’re using */
+    color: #000000;           /* or whatever text color you’re using */
   }
 
   /* TABS: buttons + content */
@@ -153,15 +153,15 @@ html, body {
     padding: 12px 0;               /* vertical padding for the bar */
     margin-bottom: 16px;           /* space below bar before the maps */
     
-    background-color: #333333;        /* dark background for the bar */
+    background-color: #ffffff;        /* dark background for the bar */
     box-sizing: border-box;
     border-radius: 4px;            /* optional rounded corners */
   }
   
   /* style the buttons themselves so they stand out in the bar */
   .map-tabs .tab-btn {
-    background: #eeeeee;
-    color: #333333;
+    background: #ffffff;
+    color: #000000;
     border: none;
     padding: 8px 16px;
     border-radius: 4px;
@@ -169,11 +169,11 @@ html, body {
     font-weight: bold;
   }
   .map-tabs .tab-btn.active {
-    background: #ffffff;
+    background: #000000;
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   }
   .map-tabs .tab-btn:hover {
-    background: #dddddd;
+    background: #ffffff;
   }
   .map-tabs .tab-content {
     display: none;
@@ -189,7 +189,7 @@ html, body {
     left:   0;
     right:  0;
     height: 50px;    /* whatever your menu height is */
-    background: #006400;
+    background: #f5f5f5;
     padding: 0 20px;
     box-sizing: border-box;
     z-index: 1000;
@@ -210,7 +210,7 @@ html, body {
     position: relative;
   }
   .menu a {
-    color: #ffffff;
+    color: #000000;
     text-decoration: none;
     font-weight: bold;
     line-height: 50px;
@@ -232,7 +232,7 @@ html, body {
     z-index: 2000;
   }
   .dropdown-menu li a {
-    color: #ffffff;
+    color: #000000;
     padding: 0.5em 1em;
     white-space: nowrap;
   }
@@ -246,61 +246,61 @@ html, body {
   }
 
   #om {
-    color: #ffffff
+    color: #000000
   }
   #om h2 {
-    color: #ffffff
+    color: #000000
   }
   #om p {
-    color: #ffffff
+    color: #000000
   }
 
   #ph {
-    color: #ffffff
+    color: #000000
   }
   #ph h2 {
-    color: #ffffff
+    color: #000000
   }
   #ph p {
-    color: #ffffff
+    color: #000000
   }
 
   #bph {
-    color: #ffffff
+    color: #000000
   }
   #bph h2 {
-    color: #ffffff
+    color: #000000
   }
   #bph p {
-    color: #ffffff
+    color: #000000
   }
 
   #samples {
-    color: #ffffff
+    color: #000000
   }
   #samples h2 {
-    color: #ffffff
+    color: #000000
   }
   #samples p {
-    color: #ffffff
+    color: #000000
   }
 
   #phos {
-    color: #ffffff
+    color: #000000
   }
   #phos h2 {
-    color: #ffffff
+    color: #000000
   }
   #phos p {
-    color: #ffffff
+    color: #000000
   }
 
   #potassium {
-    color: #ffffff
+    color: #000000
   }
   #potassium h2 {
-    color: #ffffff
+    color: #000000
   }
   #potassium p {
-    color: #ffffff
+    color: #000000
   }
