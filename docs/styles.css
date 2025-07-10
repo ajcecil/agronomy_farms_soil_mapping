@@ -240,6 +240,7 @@ html, body {
   }
   .dropdown-menu li a:hover {
     background: #8d8d8d;
+    color: #ffffff;
   }
   
   /* Show dropdown on hover */
