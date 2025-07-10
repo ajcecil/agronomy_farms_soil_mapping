@@ -1,31 +1,242 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Alex Cecil's LA-5580 Webpage</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="header">Alex Cecil's LA-5580 Webpage</div>
-    <div class="nav-bar">
-        <a href="ex1.html" class="excercise" target="_blank">Exercise #1</a>
-        <a href="ex2.html" class="excercise" target="_blank">Exercise #2</a>
-        <a href="assign1.html" class="assignment" target="_blank">Assignment #1</a>
-        <a href="assign2.html" class="assignment" target="_blank">Assignment #2</a>
-        <a href="assign3.html" class="assignment" target="_blank">Assignment #3</a>
-        <a href="assign4.html" class="assignment" target="_blank">Assignment #4</a>
-        <a href="quiz-1.html" class="quiz" target="_blank">Quiz #1</a>
-        <a href= "mini-project.html" class="assignment" target="_blank">Mini-Project</a>
-    </div>
-    <div class="nav-bar-final">
-        <a href="final_project/final_project.html" class = "final" target = "_blank">Final Project</a>
-    </div>
+  <head>
+    <title>Final Project LA 5580</title>
+    <script type="module"
+      src="https://js.arcgis.com/embeddable-components/4.32/arcgis-embeddable-components.esm.js">
+    </script>
+
+    <!-- link out to your CSS -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <a href="index.html" class="header-logo-link">
+        <img src="page_files/glsi_logo.png" alt="logo" class="header-logo">
+      </a>
+      <h1>Soil Property Modeling</h1>
+    </header>
+    <nav class="menu-bar">
+      <ul class="menu">
+        <li class="dropdown">
+          <a href="#">Tools ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="https://github.com/ajcecil/LA-5580/tree/main/docs/final_project/python" target="_blank">Python</a></li>
+            <li><a href="https://github.com/ajcecil/LA-5580/tree/main/docs/final_project/R" target="_blank">R</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#">Data Sources ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="https://apps.nationalmap.gov/lidar-explorer/#/" target="_blank">USGS Lidar Explorer</a></li>
+            <li><a href="https://earthengine.google.com/" target="_blank">Google Earth Engine </a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#">Imagery and Data ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="https://github.com/ajcecil/LA-5580/tree/main/docs/final_project/data" target="_blank">Data Used</a></li>
+            <li><a href="https://github.com/ajcecil/LA-5580/tree/main/docs/final_project/rgb" target="_blank">RGB Maps</a></li>
+            <li><a href="https://github.com/ajcecil/LA-5580/tree/main/docs/final_project/imagery" target="_blank">Remote Sensing Imagery</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#">References ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="https://www.agron.iastate.edu/glsi/" target="_blank">GLSI</a></li>
+            <li><a href="https://www.agrn.iastate.edu" target="_blank">Iowa State Agronomy</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="how_to.html">How I Made This Page</a>
+        </li>
+      </ul>
+    </nav>
+
+    <section id="overview"></section>
     <div class="content">
-        <h2>Welcome to my portfolio for LA-5580</h2>
-        <p>This site will be the host to any work from the course.</p>
-        <img src="countyHouseholdIncome.jpg" alt="Map displaying average household income in each county of Iowa.">
+
+      <section id="general" class="section-text">
+        <h2>Project Overview</h2>
+        <img src="page_files/Implements_in_field.JPG" alt="Combine and Tractor in Field" class="overview-image">
+        <p>
+          In agriculture soil samples are either taken as a part of a routine management plan or when some issue has been detected in an area which might be soil borne.
+          The cost to take routine soil samples can be prohibtive and making an assumption of the nutrient levels and general soil properties can be worth the risk.
+          The goal of this project is to develope models and methodology which would allow the prediction of common soil properties in an area with relatively few samples taken to train the models.
+          This would allow land owners to have an approximation of their soil statistics and reduce the cost to gain this information as routine samples would not be needed, only samples to train the models on the given area. 
+        </p>
+      </section>
+      <section id="methods" class="section-text">
+        <h2>Methods</h2>
+        <img src="page_files/methods_flowchart.png" alt="Flowchart of Methods" class="method-flow">
+      </section>
+
+      <section id="soil_maps">
+        <!-- 🌟 TABS CONTAINER 🌟 -->
+        <div class="map-tabs">
+            <div class="tab-buttons">
+            <button class="tab-btn active" data-target="samples">Sampled Points</button>
+            <button class="tab-btn"        data-target="ph">pH</button>
+            <button class="tab-btn"        data-target="bph">Buffer pH</button>
+            <button class="tab-btn"        data-target="om">Organic Matter</button>
+            <button class="tab-btn"        data-target="phos">Phosphorus</button>
+            <button class="tab-btn"        data-target="potassium">Potassium</button>
+            </div>
+
+            <div id="samples" class="tab-content active">
+              <div class="map-container">
+                  <h2 class="map-title">Sampled Points</h2>
+                  <arcgis-embedded-map
+                  class="my-map"
+                  item-id="8fcdbe469b744981a9331930d1c3fbcd"
+                  theme="dark"
+                  bookmarks-enabled
+                  legend-enabled
+                  information-enabled
+                  portal-url="https://isugisf.maps.arcgis.com"
+                  ></arcgis-embedded-map>
+              </div>
+            </div>
+
+            <div id="ph" class="tab-content">
+            <div class="map-container">
+                <h2 class="map-title">pH</h2>
+                <arcgis-embedded-map
+                class="my-map"
+                item-id="6ce566a61fdc44d09c1e9b845850d0b3"
+                theme="dark"
+                bookmarks-enabled
+                legend-enabled
+                information-enabled
+                portal-url="https://isugisf.maps.arcgis.com"
+                ></arcgis-embedded-map>
+            </div>
+            </div>
+
+            <div id="bph" class="tab-content">
+            <div class="map-container">
+                <h2 class="map-title">Buffer pH Map</h2>
+                <arcgis-embedded-map
+                class="my-map"
+                item-id="66c6f615f4474e49aaff4024fb8ac351"
+                theme="dark"
+                bookmarks-enabled
+                legend-enabled
+                information-enabled
+                portal-url="https://isugisf.maps.arcgis.com"
+                ></arcgis-embedded-map>
+            </div>
+            </div>
+
+            <div id="om" class="tab-content">
+              <div class="map-container">
+                  <h2 class="map-title">Organic Matter Map</h2>
+                  <arcgis-embedded-map
+                  class="my-map"
+                  item-id="561501da2eae4fbcbd676febf1341d10"
+                  theme="dark"
+                  bookmarks-enabled
+                  legend-enabled
+                  information-enabled
+                  portal-url="https://isugisf.maps.arcgis.com"
+                  ></arcgis-embedded-map>
+              </div>
+            </div>
+
+            <div id="phos" class="tab-content">
+              <div class="map-container">
+                  <h2 class="map-title">Phosphorus Map</h2>
+                  <arcgis-embedded-map
+                  class="my-map"
+                  item-id="7514f25f93f14b4ab6d92b4c0450b820"
+                  theme="dark"
+                  bookmarks-enabled
+                  legend-enabled
+                  information-enabled
+                  portal-url="https://isugisf.maps.arcgis.com"
+                  ></arcgis-embedded-map>
+              </div>
+            </div>
+            <div id="potassium" class="tab-content">
+              <div class="map-container">
+                  <h2 class="map-title">Potassium Map</h2>
+                  <arcgis-embedded-map
+                  class="my-map"
+                  item-id="c9bd503440b847af9e72b09c8d18f1c0"
+                  theme="dark"
+                  bookmarks-enabled
+                  legend-enabled
+                  information-enabled
+                  portal-url="https://isugisf.maps.arcgis.com"
+                  ></arcgis-embedded-map>
+              </div>
+            </div>
+        </div>
+        <section id="note" class="section-text">
+          <h3>Note on maps</h3>
+          <p>Due to the limitations of Iowa State University's ArcGIS Online Permissions I was not able to share maps containing the raster layers of the modeled data in this format.</p>
+        </section>
+        <section id="care" class="section-text">
+          <h2>Why are Soils Important?</h2>
+          <img src="page_files/soil_profile.png" alt="Wisconsin Soil Pit" class="pit-image">
+          <p>
+            Soil is not just the medium used to grow plants but is the basis of all human life, the importance of soil in our water and nutrient cycles, as well as the service it provides in growing our food makes it one of the most valuable resources on the planet.
+            Taking the time to understand the soil and how it can best be managed is crucial for the continuation of life on earth.
+          </p>
+          <h2>Side benefit: Soil Science can lead to new friends</h2>
+          <img src="page_files/soil_friend.png" alt="Alex and Dog" class="dog-image">
+
+        </section>
+
     </div>
-</body>
+
+    <!-- tabs.js to wire up the tab buttons -->
+    <script>
+      document.querySelectorAll('.map-tabs .tab-btn')
+        .forEach(btn => {
+          btn.addEventListener('click', () => {
+            // deactivate all
+            document
+              .querySelectorAll('.map-tabs .tab-btn')
+              .forEach(b => b.classList.remove('active'));
+            document
+              .querySelectorAll('.map-tabs .tab-content')
+              .forEach(c => c.classList.remove('active'));
+
+            // activate the one we clicked
+            btn.classList.add('active');
+            document
+              .getElementById(btn.dataset.target)
+              .classList.add('active');
+          });
+        });
+    </script>
+    <script>
+      const header   = document.querySelector('.header');
+      const menuBar  = document.querySelector('.menu-bar');
+      let   lastScroll = window.pageYOffset;
+    
+      // on load: menu sits under the header
+      menuBar.classList.add('initial');
+    
+      window.addEventListener('scroll', () => {
+        const current = window.pageYOffset;
+    
+        if (current > lastScroll && current > header.offsetHeight) {
+          // scrolling DOWN past the header → hide header, pin menu to top
+          header.classList.add('hidden');
+          menuBar.classList.remove('initial');
+          menuBar.style.top = '0';
+        } else if (current < lastScroll) {
+          // scrolling UP → show header again, push menu back down
+          header.classList.remove('hidden');
+          menuBar.classList.add('initial');
+          menuBar.style.top = header.offsetHeight + 'px';
+        }
+    
+        lastScroll = current;
+      });
+    </script>    
+  </body>
 </html>
-
-
-<a href="final_project/how_to.html" class="final" target="_blank">How to Build my Final</a>
