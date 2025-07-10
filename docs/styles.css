@@ -70,7 +70,7 @@ html, body {
     left:   0;
     right:  0;
     height: 100px;
-    background-color: #505354; /* #ADD8E6 */
+    background-color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -82,7 +82,7 @@ html, body {
   }
   .header h1 {
     font-size: 1.8em;
-    color: #F0F0F0;
+    color: #000000;
     margin: 0;
   }
   .header-logo-link {
@@ -169,7 +169,7 @@ html, body {
     font-weight: bold;
   }
   .map-tabs .tab-btn.active {
-    background: #000000;
+    background: #c8102e;
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   }
   .map-tabs .tab-btn:hover {
