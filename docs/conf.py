@@ -4,8 +4,8 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath(".."))  # so Sphinx can find your package
 
-project = "My Project"
-author = "Your Name"
+project = "Iowa State Agronomy Farm Soil Mapping"
+author = "Alex Cecil"
 release = "0.1.0"
 
 # General configuration
