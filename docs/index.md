@@ -17,7 +17,7 @@ Map Documentation
 ```
 
 
-# New section
+# Map Data
 This to test the side bar
 
 ## section a
