@@ -27,7 +27,7 @@ Map Documentation
     }).addTo(map);
 
     // Load GeoTIFF
-    var layer = new L.LeafletGeotiff('https://drive.google.com/file/d/1_EBpzMxXie6MROXYhQlBIqCeE57DoksO/view?usp=sharing', {
+    var layer = new L.LeafletGeotiff('https://drive.google.com/file/d/1_EBpzMxXie6MROXYhQlBIqCeE57DoksO/', {
       renderer: new L.LeafletGeotiff.Plotty({
         displayMin: 0,
         displayMax: 255,
