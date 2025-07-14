@@ -24,7 +24,7 @@ Map Documentation
     }).addTo(map);
 
     // Image overlay
-    var imageUrl = 'https://your-username.github.io/your-repo/docs/page_files/aoi_rgb.png';
+    var imageUrl = 'https://github.com/ajcecil/agronomy_farms_soil_mapping/blob/main/docs/page_files/aoi_rgb.png';
     var imageBounds = [[41.0000, -94.5000], [42.0000, -93.5000]];
 
     L.imageOverlay(imageUrl, imageBounds).addTo(map);
