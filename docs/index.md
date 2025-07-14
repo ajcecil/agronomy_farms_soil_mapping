@@ -4,7 +4,6 @@ Map Documentation
 
 ## Contents
 
-- [Main Page](https://ajcecil.github.io/agronomy_farms_soil_mapping/)
 - [Datastore](https://iastate.app.box.com/folder/330408802946?s=ytjl7nqkroxs3haodak27xjpkaqpajh4)
 
 
