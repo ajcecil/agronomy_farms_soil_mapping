@@ -27,7 +27,7 @@ Map Documentation
     }).addTo(map);
 
     // Load GeoTIFF
-    var layer = new L.LeafletGeotiff('https://github.com/ajcecil/agronomy_farms_soil_mapping/blob/main/docs/page_files/aoi_rgb.tif', {
+    var layer = new L.LeafletGeotiff('https://iastate.box.com/s/4zd7437kpbcos8ver2ndtlwrzcceihs4', {
       renderer: new L.LeafletGeotiff.Plotty({
         displayMin: 0,
         displayMax: 255,
