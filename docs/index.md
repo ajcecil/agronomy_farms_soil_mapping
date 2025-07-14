@@ -8,15 +8,6 @@ Map Documentation
 - [Datastore](https://iastate.app.box.com/folder/330408802946?s=ytjl7nqkroxs3haodak27xjpkaqpajh4)
 
 
-``` python
-
-    # Testing example scripting
-    print(test)
-
-
-```
-
-
 # Map Data
 This to test the side bar
 
