@@ -8,38 +8,23 @@ Map Documentation
 
 
 # Map Data
+## My Leaflet Map
+
+<div id="map" style="height: 400px;"></div>
+
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/geotiff/dist/geotiff.browser.min.js"></script>
-<script src="https://unpkg.com/leaflet-geotiff/dist/leaflet-geotiff.min.js"></script>
-<script src="https://unpkg.com/leaflet-geotiff/dist/leaflet-geotiff-plotty.min.js"></script>
-
-
-
-<div id="map" style="height: 500px;"></div>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    var map = L.map('map').setView([0, 0], 2); // placeholder
+    var map = L.map('map').setView([39.8283, -98.5795], 4); // Center on USA
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
-
-    // Load GeoTIFF
-    var layer = new L.LeafletGeotiff('https://drive.google.com/file/d/1_EBpzMxXie6MROXYhQlBIqCeE57DoksO/', {
-      renderer: new L.LeafletGeotiff.Plotty({
-        displayMin: 0,
-        displayMax: 255,
-        colorScale: 'viridis',
-      }),
-      onReady: function () {
-        // Zoom to bounds once the raster loads
-        map.fitBounds(this.getBounds());
-      }
-    }).addTo(map);
   });
 </script>
+
 
 
 ## Soil Properties
