@@ -66,17 +66,17 @@
     noWrap: true
   }).addTo(map);
 
-  // Add layer control (shows name)
+  // Layer control
   L.control.layers(
     { 
-        "OpenStreetMap": osm,
-        "Satellite Imagery": satellite
-    }, //basemaps
+      "OpenStreetMap": osm,
+      "Satellite Imagery": satellite
+    }, 
     { 
-        "Soil pH": phLayer 
-
-    } // overlays
+      "Soil pH": phLayer
+    }
   ).addTo(map);
+
 
   // Add scale bar
   L.control.scale({ position: 'bottomleft', imperial: false }).addTo(map);
