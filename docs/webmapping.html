@@ -34,11 +34,7 @@
   // Add basemap
   const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
-  });
-
-  const sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'Tiles &copy; Esri'
-  }).addzto(map);
+  }).addTo(map);
 
   // Define raster bounds
   const southWest = L.latLng(41.8821460, -93.8336951);
@@ -66,7 +62,7 @@
 
   // Add layer control (shows name)
   L.control.layers(
-    { "Sattelite" : sat, "OpenStreetMap": osm },  // basemaps
+    { "OpenStreetMap": osm },  // basemaps
     { "Soil pH": phLayer }     // overlays
   ).addTo(map);
 
