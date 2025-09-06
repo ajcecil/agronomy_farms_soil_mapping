@@ -5,59 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leaflet GeoTIFF Tiles</title>
 
-  <!-- Shared CSS -->
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
   <style>
-    /* Make map fill everything under the navbar */
-    body, html {
+    html, body {
       margin: 0;
       height: 100%;
+      overflow: hidden; /* no scrollbars */
     }
 
     .menu-bar {
       position: fixed;
       top: 0;
       width: 100%;
-      z-index: 1000;  /* keep it above the map */
+      height: 40px;     /* fixed navbar height */
+      z-index: 1000;
     }
 
-    #map {
+    .map-frame {
       position: absolute;
-      top: 40px;   /* adjust to match navbar height */
+      top: 40px;        /* same as navbar height */
       left: 0;
       right: 0;
       bottom: 0;
-    }
-
-    .leaflet-control-scale-line {
-      font-size: 16px;
-      line-height: 1.5;
-      padding: 4px 8px;
-    }
-
-    .legend {
-      line-height: 16px;
-      color: #555;
-      background: white;
-      padding: 8px;
-      border-radius: 5px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    }
-    .legend img {
-      width: 100px;
-      display: block;
+      border: none;
+      width: 100%;
+      height: calc(100% - 40px); /* fill remaining space */
     }
   </style>
 </head>
 <body>
-
-  <!-- Just navbar -->
+  <!-- Navbar -->
   <nav class="menu-bar">
     <ul class="menu">
       <li class="dropdown"><a href="index.html">Home</a></li>
-      <li class="dropdown"><a href="https://agronomy-farms-soil-mapping.readthedocs.io/">Project Documentation</a></li>
+      <li class="dropdown"><a href="https://agronomy-farms-soil-mapping.readthedocs.io/" target="_blank">Project Documentation</a></li>
       <li class="dropdown">
         <a href="#">Reference Material ▾</a>
         <ul class="dropdown-menu">
@@ -81,12 +64,7 @@
     </ul>
   </nav>
 
-  <!-- Map container -->
-  <div id="map">
-    <iframe src="webmapping.html"
-            style="position:absolute; top:40px; left:0; width:100%; height: 1000px; border:none;">
-    </iframe>
-
-  </div>
+  <!-- Map iframe -->
+  <iframe src="webmapping.html" class="map-frame"></iframe>
 </body>
 </html>
