@@ -68,9 +68,14 @@
 
   // Add layer control (shows name)
   L.control.layers(
-    { "OpenStreetMap": osm },  // basemaps
-    { "Satellite Imagery": satellite}, //basemaps
-    { "Soil pH": phLayer }     // overlays
+    { 
+        "OpenStreetMap": osm,
+        "Satellite Imagery": satellite
+    }, //basemaps
+    { 
+        "Soil pH": phLayer 
+
+    } // overlays
   ).addTo(map);
 
   // Add scale bar
