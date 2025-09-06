@@ -1,123 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Map Viewer</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaflet GeoTIFF Tiles</title>
 
-    <!-- link out to your CSS -->
-    <link rel="stylesheet" href="styles.css" />
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-      }
+  <style>
+    /* Map takes full height minus header + menu */
+    #map { 
+      height: calc(100vh - 120px); /* adjust 120px to match header+menu height */
+      margin-top: 120px;           /* push map below header+menu */
+    }
 
-      .content {
-        flex: 1;               /* take up remaining space */
-        display: flex;
-      }
+    .leaflet-control-scale-line {
+        font-size: 16px;
+        line-height: 1.5;
+        padding: 4px 8px;
+    }
 
-      .map-frame {
-        flex: 1;               /* stretch iframe inside */
-        border: none;
-      }
+    .legend {
+      line-height: 16px;
+      color: #555;
+      background: white;
+      padding: 8px;
+      border-radius: 5px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    .legend img {
+      width: 60px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
 
-    </style>
+  <!-- Reuse header + nav from index.html -->
+  <header class="header">
+    <a href="index.html" class="header-logo-link">
+      <img src="page_files/glsi_logo.png" alt="logo" class="header-logo">
+    </a>
+    <h1>Soil Property Modeling</h1>
+  </header>
+  <nav class="menu-bar">
+    <ul class="menu">
+      <li class="dropdown"><a href="index.html">Home</a></li>
+      <li class="dropdown"><a href="webmapping.html">Map Viewer</a></li>
+      <li class="dropdown"><a href="https://agronomy-farms-soil-mapping.readthedocs.io/">Project Documentation</a></li>
+      <li class="dropdown">
+        <a href="#">Reference Material ▾</a>
+        <ul class="dropdown-menu">
+          <li><a href="https://agronomy-farms-soil-mapping.readthedocs.io/" target="_blank">Documentation</a></li>
+          <li><a href="https://www.agron.iastate.edu/glsi/" target="_blank">GLSI</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#">Data Sources ▾</a>
+        <ul class="dropdown-menu">
+          <li><a href="https://apps.nationalmap.gov/lidar-explorer/#/" target="_blank">USGS Lidar Explorer</a></li>
+          <li><a href="https://earthengine.google.com/" target="_blank">Google Earth Engine</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#">Imagery and Data ▾</a>
+        <ul class="dropdown-menu">
+          <li><a href="https://iastate.box.com/s/ytjl7nqkroxs3haodak27xjpkaqpajh4" target="_blank">Soil Maps</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
 
-  </head>
+  <!-- Map container -->
+  <div id="map"></div>
 
-  <body>
-    <header class="header">
-      <a href="index.html" class="header-logo-link">
-        <img src="page_files/glsi_logo.png" alt="logo" class="header-logo">
-      </a>
-      <h1>Soil Property Modeling</h1>
-    </header>
-    <nav class="menu-bar">
-      <ul class="menu">
-        <li class="dropdown">
-          <a href="index.html">Home</a>
-        </li>
-        <li class="dropdown">
-          <a href="mapviewer.html">Map Viewer</a>
-        </li>
-        <li class="dropdown">
-          <a href="https://agronomy-farms-soil-mapping.readthedocs.io/">Project Documentation</a>
-        </li>
-        <li class="dropdown">
-          <a href="#">Reference Material ▾</a>
-          <ul class="dropdown-menu">
-            <li><a href="https://agronomy-farms-soil-mapping.readthedocs.io/" target="_blank">Documentation</a></li>
-            <li><a href="https://www.agron.iastate.edu/glsi/" target="_blank">GLSI</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#">Data Sources ▾</a>
-          <ul class="dropdown-menu">
-            <li><a href="https://apps.nationalmap.gov/lidar-explorer/#/" target="_blank">USGS Lidar Explorer</a></li>
-            <li><a href="https://earthengine.google.com/" target="_blank">Google Earth Engine </a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#">Imagery and Data ▾</a>
-          <ul class="dropdown-menu">
-            <li><a href="https://iastate.box.com/s/ytjl7nqkroxs3haodak27xjpkaqpajh4" target="_blank">Soil Maps</a></li>
-          </ul>
-      </ul>
-    </nav>
+  <!-- Leaflet -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <div class="content">
-        <iframe src="webmapping.html" class="map-frame"></iframe> 
-    </div>
+  <script>
+    // Initialize map
+    const map = L.map('map').setView([41.99, -93.74], 12);
 
-    <!-- tabs.js to wire up the tab buttons -->
-    <script>
-      document.querySelectorAll('.map-tabs .tab-btn')
-        .forEach(btn => {
-          btn.addEventListener('click', () => {
-            // deactivate all
-            document
-              .querySelectorAll('.map-tabs .tab-btn')
-              .forEach(b => b.classList.remove('active'));
-            document
-              .querySelectorAll('.map-tabs .tab-content')
-              .forEach(c => c.classList.remove('active'));
+    // Basemaps
+    const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
 
-            // activate the one we clicked
-            btn.classList.add('active');
-            document
-              .getElementById(btn.dataset.target)
-              .classList.add('active');
-          });
-        });
-    </script>
-    <script>
-      const header   = document.querySelector('.header');
-      const menuBar  = document.querySelector('.menu-bar');
-      let   lastScroll = window.pageYOffset;
-    
-      // on load: menu sits under the header
-      menuBar.classList.add('initial');
-    
-      window.addEventListener('scroll', () => {
-        const current = window.pageYOffset;
-    
-        if (current > lastScroll && current > header.offsetHeight) {
-          // scrolling DOWN past the header → hide header, pin menu to top
-          header.classList.add('hidden');
-          menuBar.classList.remove('initial');
-          menuBar.style.top = '0';
-        } else if (current < lastScroll) {
-          // scrolling UP → show header again, push menu back down
-          header.classList.remove('hidden');
-          menuBar.classList.add('initial');
-          menuBar.style.top = header.offsetHeight + 'px';
+    const sat = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Earthstar Geographics, Maxar, GeoEye, USDA FSA, USGS, AeroGRID, IGN, and the GIS User Community'
+    });
+
+    // Raster bounds
+    const southWest = L.latLng(41.8821460, -93.8336951);
+    const northEast = L.latLng(42.0996281, -93.6558287);
+    const rasterBounds = L.latLngBounds(southWest, northEast);
+
+    const BoundedTileLayer = L.TileLayer.extend({
+      createTile: function(coords, done) {
+        const tileBounds = this._tileCoordsToBounds(coords);
+        if (!rasterBounds.intersects(tileBounds)) {
+          const empty = document.createElement('div');
+          setTimeout(() => done(null, empty), 0);
+          return empty;
         }
-    
-        lastScroll = current;
-      });
-    </script>    
-  </body>
+        return L.TileLayer.prototype.createTile.call(this, coords, done);
+      }
+    });
+
+    // Add raster tiles
+    const phLayer = new BoundedTileLayer('page_files/maps/PH/tiles/{z}/{x}/{y}.png', {
+      attribution: 'pH Map Tiles',
+      opacity: 1,
+      noWrap: true
+    }).addTo(map);
+
+    // Layer control
+    L.control.layers(
+      { "OpenStreetMap": osm, "Satellite": sat },
+      { "Soil pH": phLayer }
+    ).addTo(map);
+
+    // Scale bar
+    L.control.scale({ position: 'bottomleft', imperial: false }).addTo(map);
+
+    // Legend
+    const legend = L.control({position: 'bottomright'});
+    legend.onAdd = function () {
+      const div = L.DomUtil.create('div', 'legend');
+      div.innerHTML = `
+        <strong>Soil pH</strong><br>
+        <img src="page_files/maps/PH/legend.png" alt="Legend">
+      `;
+      return div;
+    };
+    legend.addTo(map);
+
+    // Fit and constrain view
+    map.fitBounds(rasterBounds);
+    map.setMaxBounds(rasterBounds);
+    map.setMinZoom(9);
+    map.setMaxZoom(18);
+  </script>
+
+  <!-- Scroll behavior for header/menu -->
+  <script>
+    const header   = document.querySelector('.header');
+    const menuBar  = document.querySelector('.menu-bar');
+    let lastScroll = window.pageYOffset;
+
+    menuBar.classList.add('initial');
+
+    window.addEventListener('scroll', () => {
+      const current = window.pageYOffset;
+
+      if (current > lastScroll && current > header.offsetHeight) {
+        header.classList.add('hidden');
+        menuBar.classList.remove('initial');
+        menuBar.style.top = '0';
+      } else if (current < lastScroll) {
+        header.classList.remove('hidden');
+        menuBar.classList.add('initial');
+        menuBar.style.top = header.offsetHeight + 'px';
+      }
+
+      lastScroll = current;
+    });
+  </script>
+</body>
 </html>
+
