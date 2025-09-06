@@ -37,14 +37,16 @@
   const map = L.map('map').setView([41.99, -93.74], 12);
 
   // Add basemap
-  const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  });
-
   const sat = L.tileLayer(
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',  {
     attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Earthstar Geographics, Maxar, GeoEye, USDA FSA, USGS, AeroGRID, IGN, and the GIS User Community'
   }).addTo(map);
+
+  const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  });
+
+  
 
   // Define raster bounds
   const southWest = L.latLng(41.8821460, -93.8336951);
