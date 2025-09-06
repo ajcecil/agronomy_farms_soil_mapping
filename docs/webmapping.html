@@ -91,7 +91,7 @@
     `;
     return div;
   };
-
+  legend.addTo(map)
   // Show legend only when Soil pH layer is active
   map.on('overlayadd', function (e) {
     if (e.name === "Soil pH") {
@@ -105,7 +105,7 @@
     }
   });
 
-  legend.addTo(map)
+  
 
   // Fit map view to raster
   map.fitBounds(rasterBounds);
