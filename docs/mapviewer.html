@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>GLSI Agronomy Farms</title>
+    <title>Map Viewer</title>
 
     <!-- link out to your CSS -->
     <link rel="stylesheet" href="styles.css" />
+
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .content {
+        flex: 1;               /* take up remaining space */
+        display: flex;
+      }
+
+      .map-frame {
+        flex: 1;               /* stretch iframe inside */
+        border: none;
+      }
+
+    </style>
+
   </head>
 
   <body>
@@ -47,21 +68,8 @@
       </ul>
     </nav>
 
-    <section id="overview"></section>
     <div class="content">
-
-      <section id="general" class="section-text">
-        <h2>Project Overview</h2>
-        <p>
-          Test
-        </p>
-      </section>
-      
-      <section id="maps" class="section-text">
-        <h2>Soil Property Maps</h2>
-        <iframe src="webmapping.html" width="100%" height="600" style="border:none;"></iframe> 
-      </section>
-
+        <iframe src="webmapping.html" class="map-frame"></iframe> 
     </div>
 
     <!-- tabs.js to wire up the tab buttons -->
