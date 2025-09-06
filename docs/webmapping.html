@@ -36,6 +36,11 @@
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
+  const sat = L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',  {
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Earthstar Geographics, Maxar, GeoEye, USDA FSA, USGS, AeroGRID, IGN, and the GIS User Community'
+  })
+
   // Define raster bounds
   const southWest = L.latLng(41.8821460, -93.8336951);
   const northEast = L.latLng(42.0996281, -93.6558287);
@@ -62,7 +67,7 @@
 
   // Add layer control (shows name)
   L.control.layers(
-    { "OpenStreetMap": osm },  // basemaps
+    { "OpenStreetMap": osm, "Satellite": sat },  // basemaps
     { "Soil pH": phLayer }     // overlays
   ).addTo(map);
 
