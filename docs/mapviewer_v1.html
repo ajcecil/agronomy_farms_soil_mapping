@@ -84,6 +84,73 @@
   <!-- Map container -->
   <div id="map"></div>
 
-<iframe src="webmapping.html" width="100%" height="fill" style="border:none;"></iframe>
+  <!-- Leaflet -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+    // Initialize map
+    const map = L.map('map').setView([41.99, -93.74], 12);
+
+    // Basemaps
+    const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const sat = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri'
+    });
+
+    // Raster bounds
+    const southWest = L.latLng(41.8821460, -93.8336951);
+    const northEast = L.latLng(42.0996281, -93.6558287);
+    const rasterBounds = L.latLngBounds(southWest, northEast);
+
+    const BoundedTileLayer = L.TileLayer.extend({
+      createTile: function(coords, done) {
+        const tileBounds = this._tileCoordsToBounds(coords);
+        if (!rasterBounds.intersects(tileBounds)) {
+          const empty = document.createElement('div');
+          setTimeout(() => done(null, empty), 0);
+          return empty;
+        }
+        return L.TileLayer.prototype.createTile.call(this, coords, done);
+      }
+    });
+
+    // Add raster tiles
+    const phLayer = new BoundedTileLayer('page_files/maps/PH/tiles/{z}/{x}/{y}.png', {
+      attribution: 'pH Map Tiles',
+      opacity: 1,
+      noWrap: true
+    }).addTo(map);
+
+    // Layer control
+    L.control.layers(
+      { "OpenStreetMap": osm, "Satellite": sat },
+      { "Soil pH": phLayer }
+    ).addTo(map);
+
+    // Scale bar
+    L.control.scale({ position: 'bottomleft', imperial: false }).addTo(map);
+
+    // Legend
+    const legend = L.control({position: 'bottomright'});
+    legend.onAdd = function () {
+      const div = L.DomUtil.create('div', 'legend');
+      div.innerHTML = `
+        <strong>Soil pH</strong><br>
+        <img src="page_files/maps/PH/legend.png" alt="Legend">
+      `;
+      return div;
+    };
+    legend.addTo(map);
+
+    // Fit and constrain view
+    map.fitBounds(rasterBounds);
+    map.setMaxBounds(rasterBounds);
+    map.setMinZoom(9);
+    map.setMaxZoom(18);
+  </script>
 </body>
 </html>
