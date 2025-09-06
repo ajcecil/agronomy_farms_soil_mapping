@@ -74,7 +74,7 @@
 
   // Add layer control (shows name)
   L.control.layers(
-    { "Satellite": sat, "OpenStreetMap": OSM },  // basemaps
+    { "Satellite": sat, "OpenStreetMap": osm },  // basemaps
     { "Soil pH": phLayer }     // overlays
   ).addTo(map);
 
@@ -82,7 +82,7 @@
   L.control.scale({ position: 'bottomleft', imperial: false }).addTo(map);
 
   // Add legend (custom control)
-  const legend = L.control({position: 'bottomright'});
+  const legend = L.control({ position: 'bottomright' });
   legend.onAdd = function () {
     const div = L.DomUtil.create('div', 'legend');
     div.innerHTML = `
@@ -91,7 +91,20 @@
     `;
     return div;
   };
-  legend.addTo(map);
+
+  // Show legend only when Soil pH layer is active
+  map.on('overlayadd', function (e) {
+    if (e.name === "Soil pH") {
+      legend.addTo(map);
+    }
+  });
+
+  map.on('overlayremove', function (e) {
+    if (e.name === "Soil pH") {
+      map.removeControl(legend);
+    }
+  });
+
 
   // Fit map view to raster
   map.fitBounds(rasterBounds);
