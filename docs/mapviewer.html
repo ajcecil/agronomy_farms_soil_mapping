@@ -25,13 +25,13 @@
 
     .map-frame {
       position: absolute;
-      top: 35px;        /* same as navbar height */
+      top: 40px;        /* same as navbar height */
       left: 0;
       right: 0;
-      bottom: 10px;
+      bottom: 0;
       border: none;
       width: 100%;
-      height: calc(100% - 75px); /* fill remaining space */
+      height: calc(100% - 40px); /* fill remaining space */
     }
   </style>
 </head>
@@ -65,6 +65,6 @@
   </nav>
 
   <!-- Map iframe -->
-  <iframe src="webmapping.html" class="map-frame"></iframe>
+  <iframe src="webmapping.html" class="map-frame" scrolling="no"></iframe>
 </body>
 </html>
