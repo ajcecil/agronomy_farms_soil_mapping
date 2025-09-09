@@ -72,7 +72,7 @@
     noWrap: true
   }).addTo(map);
 
-  const auto_phLayer = new BoundedTileLayer('page_files/maps/PH_auto_test/tiles/{z}/{x}/{y}.png', {
+  const auto_phLayer = new BoundedTileLayer('page_files/maps/PH_auto/tiles/{z}/{x}/{y}.png', {
     attribution: 'Auto Uploaded pH Tiles',
     opacity: 1,
     noWrap: true
@@ -117,7 +117,7 @@
     const div = L.DomUtil.create('div', 'legend');
     div.innerHTML = `
       <strong>"Automation Test"</strong><br>
-      <img src="page_files/maps/PH_auto_test/legend.png" alt="Legend">
+      <img src="page_files/maps/PH_auto/legend.png" alt="Legend">
     `;
     return div;
   };
