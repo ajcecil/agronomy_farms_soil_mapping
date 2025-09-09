@@ -6,15 +6,16 @@ from rasterio.enums import Resampling
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
-from github import Github
+from github import Github, Auth
 
 # -----------------------------
 # GitHub Setup
 # -----------------------------
-GITHUB_TOKEN = "your_personal_access_token"  # safer than username/password
-GITHUB_REPO = "username/repository"          # e.g. "alexj/mytiles"
+GITHUB_TOKEN = "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"  # safer than username/password
+GITHUB_REPO = "ajcecil/agronomy_farms_soil_mapping"          # e.g. "alexj/mytiles"
 
-g = Github(GITHUB_TOKEN)
+auth = Auth.Token(GITHUB_TOKEN)
+g = Github(auth=auth)
 repo = g.get_repo(GITHUB_REPO)
 
 def upload_to_github(local_path, git_path, message="committing file"):
@@ -23,12 +24,12 @@ def upload_to_github(local_path, git_path, message="committing file"):
         contents = repo.get_contents(git_path)
         with open(local_path, "rb") as f:
             data = f.read()
-        repo.update_file(contents.path, message, data, contents.sha, branch="master")
+        repo.update_file(contents.path, message, data, contents.sha, branch="main")
         print(f"{git_path} UPDATED on GitHub")
     except Exception:  # file does not exist yet
         with open(local_path, "rb") as f:
             data = f.read()
-        repo.create_file(git_path, message, data, branch="master")
+        repo.create_file(git_path, message, data, branch="main")
         print(f"{git_path} CREATED on GitHub")
 
 

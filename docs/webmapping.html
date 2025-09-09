@@ -72,10 +72,16 @@
     noWrap: true
   }).addTo(map);
 
+  const auto_phLayer = new BoundedTileLayer('page_files/maps/PH_auto_test/tiles/{z}/{x}/{y}.png', {
+    attribution: 'Auto Uploaded pH Tiles',
+    opacity: 1,
+    noWrap: true
+  });
+
   // Add layer control (shows name)
   L.control.layers(
     { "Satellite": sat, "OpenStreetMap": osm },  // basemaps
-    { "Soil pH": phLayer }     // overlays
+    { "Soil pH": phLayer, "Automation Test": auto_phLayer}     // overlays
   ).addTo(map);
 
   // Add scale bar
@@ -105,6 +111,28 @@
     }
   });
 
+
+  const testlegend = L.control({ position: 'bottomright' });
+  testlegend.onAdd = function () {
+    const div = L.DomUtil.create('div', 'legend');
+    div.innerHTML = `
+      <strong>"Automation Test"</strong><br>
+      <img src="page_files/maps/PH_auto_test/legend.png" alt="Legend">
+    `;
+    return div;
+  };
+  // Show legend only when Soil pH layer is active
+  map.on('overlayadd', function (e) {
+    if (e.name === "Automation Test") {
+      testlegend.addTo(map);
+    }
+  });
+
+  map.on('overlayremove', function (e) {
+    if (e.name === "Automation Test") {
+      map.removeControl(testlegend);
+    }
+  });
   
 
   // Fit map view to raster
