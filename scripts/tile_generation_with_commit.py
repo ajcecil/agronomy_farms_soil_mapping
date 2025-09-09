@@ -12,14 +12,13 @@ from github import Github, Auth
 # GitHub Setup
 # -----------------------------
 GITHUB_TOKEN = "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"  # safer than username/password
-GITHUB_REPO = "ajcecil/agronomy_farms_soil_mapping"          # e.g. "alexj/mytiles"
+GITHUB_REPO = "ajcecil/agronomy_farms_soil_mapping"
 
 auth = Auth.Token(GITHUB_TOKEN)
 g = Github(auth=auth)
 repo = g.get_repo(GITHUB_REPO)
 
 def upload_to_github(local_path, git_path, message="committing file"):
-    """Upload or update file to GitHub repo"""
     try:
         contents = repo.get_contents(git_path)
         with open(local_path, "rb") as f:
@@ -32,6 +31,10 @@ def upload_to_github(local_path, git_path, message="committing file"):
         repo.create_file(git_path, message, data, branch="main")
         print(f"{git_path} CREATED on GitHub")
 
+def upload_batch(batch_files):
+    """Upload a batch of files to GitHub"""
+    for local_path, git_path in batch_files:
+        upload_to_github(local_path, git_path, message="Adding tile")
 
 # -----------------------------
 # Tile Generation
@@ -41,12 +44,13 @@ tiles_dir = r"main\products\maps\PH\tiles"
 
 TILE_SIZE = 256
 zoom_levels = range(9, 19)
+BATCH_SIZE = 500  # number of tiles per GitHub batch
 
 WEBMERC_MIN = -20037508.342789244
 WEBMERC_MAX = 20037508.342789244
 WEBMERC_SIZE = WEBMERC_MAX - WEBMERC_MIN
 
-cmap = plt.get_cmap("viridis")
+cmap = plt.get_cmap("inferno")
 
 def mercator_tile_bounds(x, y, z):
     n = 2 ** z
@@ -65,12 +69,13 @@ def get_tile_range(bounds, zoom):
     y_max = int((WEBMERC_MAX - bounds.bottom) / WEBMERC_SIZE * n)
     return x_min, x_max, y_min, y_max
 
-
 with rasterio.open(tiff_path) as src:
     bounds = src.bounds
     data = src.read(1, masked=True)
     data_min = data.min()
     data_max = data.max()
+
+    batch_files = []
 
     for z in zoom_levels:
         x_min, x_max, y_min, y_max = get_tile_range(bounds, z)
@@ -107,15 +112,23 @@ with rasterio.open(tiff_path) as src:
                 file_path = os.path.join(tile_path, f"{y}.png")
                 img.save(file_path)
 
-                # Upload to GitHub
+                # Add to batch
                 git_path = f"docs/page_files/maps/PH_auto/tiles/{z}/{x}/{y}.png"
-                upload_to_github(file_path, git_path)
+                batch_files.append((file_path, git_path))
+
+                # If batch size reached, upload and clear batch
+                if len(batch_files) >= BATCH_SIZE:
+                    upload_batch(batch_files)
+                    batch_files = []
+
+    # Upload remaining files
+    if batch_files:
+        upload_batch(batch_files)
 
 print("Tile generation + GitHub upload complete!")
 
-
 # -----------------------------
-# Legend (also uploaded)
+# Legend
 # -----------------------------
 main_dir = r'main\html'
 legend_path = os.path.join(main_dir, "legend.png")
@@ -140,3 +153,4 @@ print(f"Legend saved locally to {legend_path}")
 
 # Upload legend to GitHub
 upload_to_github(legend_path, "docs/page_files/maps/PH_auto/legend.png")
+
