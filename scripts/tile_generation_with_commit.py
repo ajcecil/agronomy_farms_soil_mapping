@@ -11,7 +11,7 @@ from github import Github, Auth
 # -----------------------------
 # GitHub Setup
 # -----------------------------
-GITHUB_TOKEN = "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"  # safer than username/password
+GITHUB_TOKEN = ""  # safer than username/password
 GITHUB_REPO = "ajcecil/agronomy_farms_soil_mapping"          # e.g. "alexj/mytiles"
 
 auth = Auth.Token(GITHUB_TOKEN)
@@ -40,7 +40,7 @@ tiff_path = r"main\products\maps\PH\ph_rules_august_25.tif"
 tiles_dir = r"main\products\maps\PH\tiles"
 
 TILE_SIZE = 256
-zoom_levels = range(9, 13)
+zoom_levels = range(9, 19)
 
 WEBMERC_MIN = -20037508.342789244
 WEBMERC_MAX = 20037508.342789244
