@@ -72,8 +72,8 @@
     noWrap: true
   }).addTo(map);
 
-  const auto_phLayer = new BoundedTileLayer('page_files/maps/PH_auto/tiles/{z}/{x}/{y}.png', {
-    attribution: 'Auto Uploaded pH Tiles',
+  const auto_phLayer = new BoundedTileLayer('page_files/maps/BPH/tiles/{z}/{x}/{y}.png', {
+    attribution: 'BpH Tiles',
     opacity: 1,
     noWrap: true
   });
@@ -81,7 +81,7 @@
   // Add layer control (shows name)
   L.control.layers(
     { "Satellite": sat, "OpenStreetMap": osm },  // basemaps
-    { "Soil pH": phLayer, "Automation Test": auto_phLayer}     // overlays
+    { "Soil pH": phLayer, "Soil BPH": BPH}     // overlays
   ).addTo(map);
 
   // Add scale bar
@@ -93,7 +93,7 @@
     const div = L.DomUtil.create('div', 'legend');
     div.innerHTML = `
       <strong>Soil pH</strong><br>
-      <img src="page_files/maps/PH/legend.png" alt="Legend">
+      <img src="page_files/maps/PH/legend.png" alt="BPH Legend">
     `;
     return div;
   };
@@ -113,24 +113,24 @@
 
 
   const testlegend = L.control({ position: 'bottomright' });
-  testlegend.onAdd = function () {
+  bphlegend.onAdd = function () {
     const div = L.DomUtil.create('div', 'legend');
     div.innerHTML = `
-      <strong>Automation\nTest</strong><br>
-      <img src="page_files/maps/PH_auto/legend.png" alt="Legend">
+      <strong>BPH</strong><br>
+      <img src="page_files/maps/BPH/legend.png" alt="BPH Legend">
     `;
     return div;
   };
   // Show legend only when Soil pH layer is active
   map.on('overlayadd', function (e) {
-    if (e.name === "Automation Test") {
-      testlegend.addTo(map);
+    if (e.name === "BPH Legend") {
+      bphlegend.addTo(map);
     }
   });
 
   map.on('overlayremove', function (e) {
-    if (e.name === "Automation Test") {
-      map.removeControl(testlegend);
+    if (e.name === "BPH Legend") {
+      map.removeControl(bphlegend);
     }
   });
   
